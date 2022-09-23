@@ -1,0 +1,6 @@
+[default]
+address = "0.0.0.0"
+template_dir = "arcana-frontend/templates/"
+
+[release]
+secret_key = "<YOUR_SECRET_GOES_HERE>"
