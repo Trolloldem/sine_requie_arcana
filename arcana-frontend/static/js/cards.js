@@ -5,7 +5,7 @@ function add_player(name) {
                   <div class="card-body">
                         <div class="row">
                                 <div class="col-sm text-center" id="cover_${name}">
-                                        <img src="/arcana/cover.png" class="cards">
+                                        <img src="/arcana/cover.jpg" class="cards">
                                 </div>
                                 <div class="col-sm text-center" id="card_${name}">
                                 </div>
@@ -38,7 +38,7 @@ function add_cover(name) {
         if (cover_div.children.length === 0) {
                 let new_img = document.createElement("img");
                 new_img.setAttribute("href", "#");
-                new_img.setAttribute("src", `/arcana/cover.png`);
+                new_img.setAttribute("src", `/arcana/cover.jpg`);
                 new_img.setAttribute("class", "cards");
                 cover_div.appendChild(new_img);
         }
