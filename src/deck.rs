@@ -58,6 +58,10 @@ impl Decks {
                 };
         }
 
+        pub fn has_player(&self, player_name: &String) -> bool {      
+                self.decks.contains_key(player_name)
+        }
+
         pub fn get_players(&self) -> Keys<String, Vec<u8>> {
                 self.decks.keys()
         }

@@ -63,15 +63,14 @@ fn subscribe(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![
 #[get("/?<name>")]
 fn new_deck(_user: User, name: String, shared_decks: &State<SharedDecks>, cookies: &CookieJar, queue: &State<Sender<Message>>) -> Template {
     let mut states;
-    if cookies.get_private("name").is_none() {
+    let decks = &mut *shared_decks.data.lock().expect("Cannot acquire lock on decks");
+    if cookies.get_private("name").is_none() || !decks.has_player(&name) {
         cookies.add_private(Cookie::new("name", name.clone()));
-        let decks = &mut *shared_decks.data.lock().expect("Cannot acquire lock on decks");
         decks.insert_deck(&name);
         states = vec![UserState { last_drawn: decks.get_last_drawn(&name), name: name} ];
         get_others(&mut states, decks);
         let _res = queue.send(Message { name: states[0].name.clone(), arcana: None, is_shuffle: false, is_last_card: false });
     } else {
-        let decks = &mut *shared_decks.data.lock().expect("Cannot acquire lock on decks");
         states = vec![UserState{ last_drawn: decks.get_last_drawn(&name), name: name} ];
         get_others(&mut states, decks);
     }
