@@ -1,7 +1,8 @@
+//! Structs and functions used to handle the communication with clients
+
 use rocket::http::Status;
 use rocket::request::{FromRequest, Request, Outcome};
 use rocket::serde::{Serialize, Deserialize};
-
 
 pub struct User {
         pub name: String,

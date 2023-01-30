@@ -1,3 +1,5 @@
+//! Struct and methods used to handle players' decks
+
 use std::collections::HashMap;
 use std::collections::hash_map::Keys;
 use std::sync::Mutex;
