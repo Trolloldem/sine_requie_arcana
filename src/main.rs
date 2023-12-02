@@ -81,7 +81,7 @@ fn subscribe(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![
 /// Main endpoint of the application
 ///
 /// Its behavior is determined by the checks perfomed through the [User][comms::User] request guard.
-/// If the guard cheks are successful the GET request to this method, the endpoint will execute one of the two following paths:
+/// If the guard checks are successful the GET request to this method, the endpoint will execute one of the two following paths:
 /// 1. The player has no deck assigned: a new one is created and all the other players are notified
 /// 2. The player already has a deck, so it is simply recovered alongside the last drawn card
 /// After the previous step, the last cards drawn by every player is recovered and an `Handlebars` template is 

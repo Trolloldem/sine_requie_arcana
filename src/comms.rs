@@ -31,7 +31,7 @@ impl<'r> FromRequest<'r> for User {
     async fn from_request(request: &'r Request<'_>) -> Outcome<User, String> {
         if request.cookies().get_private("name").is_none() {
                 if request.query_value::<&str>("name").is_none() {
-                        return Outcome::Forward(())
+                        return Outcome::Forward(Status::BadRequest)
                 } else {
                         return Outcome::Success(User { name: request.query_value::<&str>("name").unwrap().unwrap().to_string() })
                 }
@@ -40,7 +40,7 @@ impl<'r> FromRequest<'r> for User {
         if request.query_value::<&str>("name").is_some() {
                 let name =  request.query_value::<&str>("name").unwrap().unwrap();
                 if name != request.cookies().get_private("name").unwrap().value() {
-                        return Outcome::Failure((Status::BadRequest, "You cannot login with multiple usernames".to_string()));
+                        return Outcome::Error((Status::BadRequest, "You cannot login with multiple usernames".to_string()));
                 }
         }
         Outcome::Success(User { name: request.cookies().get_private("name").unwrap().value().to_string() })
